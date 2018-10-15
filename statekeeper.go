@@ -6,15 +6,17 @@ import (
 )
 
 type keeper struct {
+	path string
 }
 
 func (k *keeper) write(id string, cyc Cycle) error {
 
-	f, err := os.OpenFile("/home/bugless/.screens/."+id, os.O_WRONLY|os.O_CREATE, 0755)
+	f, err := os.OpenFile(k.path+"/"+id, os.O_WRONLY|os.O_CREATE, 0755)
 	defer f.Close()
 	if err != nil {
 		return err
 	}
+
 	enc := json.NewEncoder(f)
 	enc.SetIndent("", "\t")
 	err = enc.Encode(cyc)
@@ -24,7 +26,7 @@ func (k *keeper) write(id string, cyc Cycle) error {
 func (k *keeper) read(id string) (Cycle, error) {
 	var c Cycle
 
-	f, err := os.OpenFile("/home/bugless/.screens/."+id, os.O_RDONLY, 0755)
+	f, err := os.OpenFile(k.path+"/"+id, os.O_RDONLY, 0755)
 	defer f.Close()
 	if err != nil {
 		return c, err

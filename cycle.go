@@ -14,8 +14,8 @@ type Cyclist struct {
 	stateKeeper
 }
 
-func New(cyc map[string]Cycle) (Cyclist, error) {
-	cyclist := Cyclist{&keeper{}}
+func New(cyc map[string]Cycle, path string) (Cyclist, error) {
+	cyclist := Cyclist{&keeper{path}}
 	for id, c := range cyc {
 		err := cyclist.write(id, c)
 		if err != nil {
@@ -38,7 +38,7 @@ func (c Cyclist) Cycle(id string) (string, error) {
 
 // Cycle holds a list of Entries
 type Cycle struct {
-	Entries []Entry
+	Entries []string
 	Current int
 }
 
@@ -51,9 +51,5 @@ func (c *Cycle) Cycle() string {
 	if len(c.Entries) == c.Current {
 		c.Current = 0
 	}
-	return cmd.Cmd
-}
-
-type Entry struct {
-	Cmd string
+	return cmd
 }

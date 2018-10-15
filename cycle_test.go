@@ -8,10 +8,10 @@ import (
 
 func TestCycle(t *testing.T) {
 	c := Cycle{
-		Entries: []Entry{
-			{Cmd: "cmd1"},
-			{Cmd: "cmd2"},
-			{Cmd: "cmd3"},
+		Entries: []string{
+			"cmd1",
+			"cmd2",
+			"cmd3",
 		},
 	}
 

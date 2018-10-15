@@ -8,13 +8,13 @@ import (
 
 func TestWrite(t *testing.T) {
 	k := keeper{}
-	err := k.write("foo", Cycle{Entries: []Entry{{"foo"}}})
+	err := k.write("foo", Cycle{Entries: []string{"foo"}})
 	require.NoError(t, err)
 }
 
 func TestRead(t *testing.T) {
 	k := keeper{}
-	c1 := Cycle{Entries: []Entry{{"foo"}}}
+	c1 := Cycle{Entries: []string{"foo"}}
 	err := k.write("foo", c1)
 	require.NoError(t, err)
 	c2, err := k.read("foo")
